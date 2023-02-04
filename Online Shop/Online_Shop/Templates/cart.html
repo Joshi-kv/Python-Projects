@@ -1,0 +1,113 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+Lorem ipsum dolor sit amet consectetur adipisicing elit. Pariatur, aspernatur molestias! Error laboriosam accusamus, ad nesciunt eaque odit iusto impedit maiores, deleniti labore voluptas expedita dolorem quisquam atque tempora aliquid.
+{% endblock metadescription %}
+
+{% block title %}
+Cart
+{% endblock title %}
+
+{% block content %}
+{% if not cart_items %}
+<div class="text-center">
+    <h3>
+        Your cart is empty
+    </h3>
+</div>
+<div>
+    <h4 class="text-center mt-5 mb-5">
+     Please click here to add product&nbsp;   <a class="btn btn-primary" href="{% url 'Home:homepage' %}">Add Product</a>
+    </h4>
+</div>
+{% else %}
+<div>
+<div class="text-center">
+    <h3 style="text-transform:uppercase;">
+        Your  cart
+    </h3>
+</div>
+</div>
+<div class="row">
+<div class="col-12 col-md-12 col-sm-12 col-lg-6 mt-5 mb-5 ml-5 ">
+    <table  class="table table-dark table-striped">
+        <thead>
+            <tr>
+                <th colspan="5">
+                    Your Items
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for cart_item in cart_items  %}
+            <tr class="custom-text">
+                <td>
+                    <a href="{{cart_item.product.get_url}}"><img style="width:auto;height:auto;background-color:white;" src="{{cart_item.product.image.url}}" alt="" class="float-left rounded"></a>
+                </td>
+                <td class="text-left">
+                    {{cart_item.product.name}}
+                    <br>
+                    SKU : {{cart_item.product.id}}
+                    <br>
+                    Price : ₹ {{cart_item.product.price}}
+                    <br>
+                    QTY : {{cart_item.quantity}} x ₹ {{cart_item.product.price}}
+                    <br>
+                    <br>
+                    <a href="{% url 'Home:homepage' %}" class="btn btn-success mt-5">Pay Now</a>
+                </td>
+                <td>
+                    ₹ {{cart_item.sub_total}}
+                </td>
+                {% if cart_item.quantity < cart_item.product.stock %}
+                
+                <td>
+                    <a href="{% url 'Cartapp:add_cart' cart_item.product.id %}"><i class="fa-solid fa-square-plus"></i></a>
+                    &nbsp;<a href="{% url 'Cartapp:remove_item' cart_item.product.id  %}"><i class="fa-solid fa-square-minus"></i></a>
+                    &nbsp;<a href="{% url 'Cartapp:item_delete' cart_item.product.id %}"><i class="fa-solid fa-trash-can"></i></a>
+                </td>
+                {% else %}
+                <td>
+                    &nbsp;<a href="{% url 'Cartapp:remove_item' cart_item.product.id %}"><i class="fa-solid fa-square-minus"></i></a>
+                    &nbsp;<a href="{% url 'Cartapp:item_delete' cart_item.product.id %}"><i class="fa-solid fa-trash-can"></i></a>
+                </td>
+                {% endif %}
+                  
+            </tr>
+            
+            {% endfor %}
+            
+        </tbody>
+    </table>
+</div>
+<div class="col-12 col-md-12 col-sm-12 col-lg-6  p-5">
+    <table>
+        <thead>
+            <tr>
+                <th>
+                    Check Out 
+                </th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr>
+                <td>
+                    Please review your item before proceeding
+                </td>
+            </tr>
+        </tbody>
+    </table><br>
+    <div>
+        <a href="{% url 'Home:homepage' %}" class="btn btn-success">Continue Shopping</a>
+    </div>
+    <div class="card bg-warning" style="width:200px;height:100px;left:50%;top:40px;">
+        <h5 class="text-center mt-5" style="color:black;">
+            Total Cart Balance : <strong>{{total}}</strong>
+        </h5>
+    </div>
+</div>
+</div>
+ <div >
+</div> 
+{% endif %}
+{% endblock content %}

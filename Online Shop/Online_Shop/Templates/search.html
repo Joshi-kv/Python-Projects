@@ -1,0 +1,48 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block metadescription %}
+{% lorem 1 b random %}
+{% endblock metadescription %}
+
+
+{% block title %}
+Search
+{% endblock title %}
+{% block content %}
+
+<div>
+    <div>
+        <h3 class="text-center mt-5">You have searched for : <b>{{query}}</b></h3>
+    </div>
+</div><br><br>
+
+<div class="product "> 
+	<div class="container" style="margin:auto;">
+		<div class="product-top">
+			<div class="product-one ">
+			{% for i in product %}
+				<div class="col-md-4 product-left mt-5">
+					<div class="product-main simpleCart_shelfItem ">
+						<a href="{{i.get_url}}" class="mask"><img  class="img-responsive zoom-img" src="{{i.image.url}}" alt="{{i.name}}" /></a>
+						<div class="product-bottom">
+							<h3>{{i.name}}</h3>
+							<p>Explore Now</p>
+							<h4> <span class=" item_price">RS. {{i.price}}</span></h4>
+						</div>
+						<div class="srch">
+							<span>-50%</span>
+						</div>
+					</div>
+				</div>
+                {%empty%}
+                    <h3 class="text-center">0 &nbsp; Result Found</h3>	
+				{% endfor %}
+			</div>				
+		</div>
+	</div>
+</div>
+<div>
+
+
+{% endblock content %}
+

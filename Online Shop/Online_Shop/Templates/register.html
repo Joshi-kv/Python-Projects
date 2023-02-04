@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% block content %}
+
+<div class="register ">
+	<div class="container mb-5" style="border:1px solid black;">
+		<div class="register-top heading">
+			<h2>REGISTER</h2>
+		</div>
+		<div class="register-main " style="margin-left:30%;">
+			<div class="col-md-6 lg-6 account-left mb-3">
+				<form action="" method="post">
+					{% csrf_token %}
+					<div>
+						<label for="Username">Username</label>
+						<input type="text" placeholder="Username" name="username" required >
+					</div>
+					<div >
+						<label for="Username">Mail Address</label>
+						<input type="text" placeholder="example@gmail.com" name="email" required >
+					</div>
+					<div >
+						<label for="Username">First Name</label>
+						<input type="text" placeholder="First Name" name="first_name" required >
+					</div>
+					<div>
+						<label for="Username">Last Name</label>
+						<input type="text" placeholder="Last Name" name="last_name" required >
+					</div>
+					<div>
+						<label for="Username">Password</label>
+						<input type="password" placeholder="Password" name="password" required >
+					</div>
+					<div>
+						<label for="Username">Confirm Password</label>
+						<input type="password" placeholder="Retype Password" name="confirm_password" required >
+					</div>
+					<div class="address mb-5">
+						{% for message in messages %}
+					<div>
+						<p style="color:red;">
+							{{message}}
+						</p>
+					</div>
+					{% endfor %}
+						<button type="submit" class="mt-5">Signup</button>
+						&nbsp;<a href="">Already have an account</a>
+					</div>	
+				</form>	
+			</div>
+		</div>
+	</div>
+</div>		
+{% endblock content %}

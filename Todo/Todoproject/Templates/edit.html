@@ -1,0 +1,21 @@
+{% extends 'base.html' %}
+{% block content %}
+    <div class="container ">
+        <div class="row">
+            <div class="col-md-6 ">
+                <div class="card shadow m-5  ms-auto " style="width: 18rem;">
+                    <div class="card-body">
+                      <p class="card-text"> 
+                        <h3>Update form</h3>
+                        <form action="" method='post'>
+                        {% csrf_token %}
+                            {{form.as_p}}
+                            <button class="btn btn-success mt-5">Confirm</button>  
+                        </p> 
+                        </form>
+                    </div> 
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock content %}

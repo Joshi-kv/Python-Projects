@@ -1,0 +1,73 @@
+{% load static %}
+<nav>
+<div class="header-bottom">
+    <div class="container-fluid">
+        <div class="header">
+            <div class="col-md-5 col-sm-3 col-lg-8 header-left">
+            <div class="top-nav">
+                <ul class="memenu skyblue"><li class="active"><a href="{% url 'Home:homepage' %}">Home</a></li>
+                    <li class="grid"><a href="#">Category</a>
+                        <div class="mepanel">
+                            <div class="row">
+                                <div class="col1 me-one">
+                                    <ul>
+                                        <li><a href="{% url 'Home:homepage' %}">All Products</a></li>
+                                        {% for i in links %}
+                                        <li><a href="{{i.get_url}}">{{i.name}}</a></li>
+                                        {% endfor %}
+                                    </ul>
+                                </div>
+                            </div>
+                        </div>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li class="grid"><a href="{% url 'User:logout' %}">Log Out</a></li>
+                    {% else %}
+                    <li class="grid"><a href="{% url 'User:signup' %}">Sign Up</a>
+                    </li>
+                    <li class="grid"><a href="{% url 'User:login' %}">Log In</a>
+                    </li>
+                    {% endif %}
+                    {% if item_count > 0 %}
+                    <li><a href="{% url 'Cartapp:cart_detail' %}"><i class="fa-solid fa-cart-shopping fa-1x"> <span class="position- 
+                    absolute top-0 start-60 translate-middle badge rounded-pill bg-danger">{{item_count}}</span></i></a>
+                    </li>
+                    {% else %}
+                    <li><a href="{% url 'Cartapp:cart_detail' %}"><i class="fa-solid fa-cart-shopping fa-1x"> </i></a>
+                    </li>
+                    {% endif %}
+                </ul>
+            </div>
+            <div class="clearfix"> </div>
+        </div>
+        <div class="col-md-7 col-sm-9  col-lg-4 header-right"> 
+            <div class="search-bar">
+            <form class="d-flex" method="get" action="{% url 'Home:search' %}">
+                {% csrf_token %}
+                <input style="width:150px;" class="form-control mr-5" name="q" type="search" placeholder="Search" aria-label="Search">
+                <button class=" ml-3  btn btn-success " type="submit"><i class="fa-solid fa-magnifying-glass "></i></button>
+              </form>
+              
+            </div>
+        
+        </div>
+        <div class="clearfix"> </div>
+        </div>
+    </div>
+</div>
+<div>
+	<div class="logo">
+		<a href="{% url 'Home:homepage' %}"><h1>Luxury Watches</h1></a>
+	</div>
+	
+</div>
+    <div>
+        <img class="text-left mb-5 mt-5 " src="{% static 'images/User.png' %}" alt="" style="width:50px;height:50px;margin-left:30px">
+        &nbsp;<strong class="user"> 
+        {% if user.is_authenticated %}
+          {{user.first_name}} {{user.last_name}}
+          {% else %}
+          User
+          {% endif %}  
+        </strong>
+    </div>
